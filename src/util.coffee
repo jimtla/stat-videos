@@ -1,3 +1,5 @@
+_ = require 'underscore'
+
 fail_on_error = (error, success) -> (err, rest...) ->
     if err? error err
     else success rest...

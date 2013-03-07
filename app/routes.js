@@ -3,5 +3,11 @@
 module.exports = function(app) {
   var add_type, thread_type;
   add_type = require('./rest').add_type;
-  return thread_type = add_type(app, 'thread', {});
+  thread_type = add_type(app, 'thread', {});
+  app.get('/add_video', function(req, res) {
+    return res.render('add_video');
+  });
+  return app.post('/add_video', function(req, res) {
+    return res.send(req.files.video);
+  });
 };

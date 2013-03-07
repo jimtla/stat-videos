@@ -14,7 +14,8 @@
     "backbone": "0.9.9",
     "haml": "0.4.3",
     "async": "~0.1.22",
-    "sendgrid": "~0.2.5"
+    "sendgrid": "~0.2.5",
+    "ftp": "~0.2.8"
   },
   "scripts": {
     "start": "node server.js",
