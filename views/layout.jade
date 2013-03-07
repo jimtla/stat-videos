@@ -1,0 +1,27 @@
+!!! 5
+//if lt IE 7 ]><html class="ie ie6" lang="en">
+//if IE 7 ]><html class="ie ie7" lang="en">
+//if IE 8 ]><html class="ie ie8" lang="en">
+// [if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]
+head
+  meta(charset='utf-8')
+  title Leaf
+  meta(name='description', content='')
+  meta(name='author', content='')
+  // Mobile Specific
+  meta(name="viewport", content="width=device-width, initial-scale=1.0")
+
+  // CSS
+  != css('bootstrap')
+  != css('styl')
+
+body
+  block content
+
+  != js('https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js')
+  != js('app')
+
+  script(type='text/javascript')
+    (function(a){if(window.filepicker){return}var b=a.createElement("script");b.type="text/javascript";b.async=!0;b.src=("https:"===a.location.protocol?"https:":"http:")+"//api.filepicker.io/v1/filepicker.js";var c=a.getElementsByTagName("script")[0];c.parentNode.insertBefore(b,c);var d={};d._queue=[];var e="pick,pickMultiple,read,write,writeUrl,export,convert,store,storeUrl,remove,stat,setKey,constructWidget,makeDropPane".split(",");var f=function(a,b){return function(){b.push([a,arguments])}};for(var g=0;g<e.length;g++){d[e[g]]=f(e[g],d._queue)}window.filepicker=d})(document);
+    filepicker.setKey('AFCPOvoguSQ6AvRlcJUnFz');
+| </html>

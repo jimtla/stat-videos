@@ -1,0 +1,306 @@
+html
+  height 100%
+
+  body
+    height 100%
+    background-color #f5f5f5
+
+    #main
+      margin-top 30px
+      padding-bottom 100px
+      box-sizing border-box
+      width 800px
+      background-color white
+
+.video-container
+  width 250px
+  position absolute
+  bottom 50px
+  left 50px
+
+side_panel_width = 150px
+.tool-side-panel
+  margin-left - side_panel_width
+  height 100%
+  width side_panel_width
+  position absolute
+  overflow scroll
+
+.show-area
+  position relative
+  height 600px
+  background-color #414042
+
+  .tool-container
+    width  800px
+    height 600px
+    .tool
+      width  800px
+      height 600px
+      background #e0e0e0
+
+      &.greenbox-recorder
+        background-color: green
+
+      &.example-tool
+        h1
+          margin-top 0px
+          padding-top 50px
+          margin-bottom 40px
+          margin-left 50px
+        h2
+          margin-left 50px
+          margin-bottom 30px
+
+
+.buttons
+  text-align center
+  margin-top 30px
+  width 450px
+  float right
+
+  button
+    font-weight bold
+    font-size 16px
+
+  .record, .save, .pause
+      border 0
+      border-radius 19px
+      width 106px
+      height 36px
+
+      // background: -moz-linear-gradient(top,  #ec3640 0%, #ec3640 50%, #ea212d 51%, #ea212d 100%); /* FF3.6+ */
+      // background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ec3640), color-stop(50%,#ec3640), color-stop(51%,#ea212d), color-stop(100%,#ea212d)); /* Chrome,Safari4+ */
+      // background: -webkit-linear-gradient(top,  #ec3640 0%,#ec3640 50%,#ea212d 51%,#ea212d 100%); /* Chrome10+,Safari5.1+ */
+      // background: -o-linear-gradient(top,  #ec3640 0%,#ec3640 50%,#ea212d 51%,#ea212d 100%); /* Opera 11.10+ */
+      // background: -ms-linear-gradient(top,  #ec3640 0%,#ec3640 50%,#ea212d 51%,#ea212d 100%); /* IE10+ */
+      // background: linear-gradient(to bottom,  #ec3640 0%,#ec3640 50%,#ea212d 51%,#ea212d 100%); /* W3C */
+
+  .record
+    color white
+    background: #ec3640; /* Old browsers */
+
+  .record, .pause
+    width 100px
+    float left
+
+  .save
+    width 160px
+    float right
+    margin-right 20px
+
+  .pause, .save
+    color black
+    background LightGray
+
+.greenbox-player
+  background green
+  position: relative
+  .mouse-icon
+    position absolute
+    background blue
+    width 20px
+    height 20px
+    top -10000px
+    border-radius 10px
+
+canvas
+  cursor crosshair
+
+.tool-picker-area
+    width 798px
+    height: 50px
+    border 1px solid #999
+    background-color white
+
+    .icon
+      float left
+      height 50px
+      width 170px
+      border-right 1px solid #999
+      box-sizing border-box
+      padding-top 14px
+      padding-left 70px
+      background-repeat: no-repeat
+      background-position: 20px 50%
+      color: black
+      cursor: pointer
+
+    .icon.active
+      background-color: black
+      color: white
+
+    .whiteboard-icon
+      background-image url(/drawing_inactive.png)
+
+    .whiteboard-icon.active
+      background-image url(/drawing_active.png)
+
+    .slides-icon
+      background-image url(/slides_inactive.png)
+
+    .slides-icon.active
+      background-image url(/slides_active.png)
+
+    .youtube-icon
+      background-image url(/youtube_inactive.png)
+
+    .youtube-icon.active
+      background-image url(/youtube_active.png)
+
+    .multiple_choice-icon
+      background-image url(/mc1.png)
+
+    .multiple_choice-icon.active
+      background-image url(/mc_2.png)
+
+.slides-popover
+  width: 800px
+
+.no-display
+  display none !important
+
+ol.inline, ul.inline
+  li
+    display inline-block
+
+.mouse
+  width 10px
+  height 10px
+  position absolute
+  left 0
+  top 0
+  background-color blue
+  z-index 1
+
+.slides-canvas
+  position absolute
+  top 0
+  left 0
+
+.whiteboard-side-panel
+  button
+    display block
+    margin-left auto
+    margin-right auto
+    margin-bottom 5px
+  .whiteboards
+    img
+      border 1px solid black
+      margin-bottom 5px
+      box-sizing border-box
+  #colorpicker
+    width 50%
+    box-sizing border-box
+    height 33px
+    display inline
+    margin-bottom 5px
+    margin-left 10px
+  #undo
+    float left
+    margin-left 10%
+
+#whiteboard_text_modal
+  position fixed
+  left 35%
+  top 15%
+  width 30%
+  height 30%
+  background-color lightgrey
+  padding 5px
+  border 1px solid grey
+  box-sizing border-box
+
+  #whiteboard_text
+    display block
+    width 95%
+    height 90%
+    margin-left auto
+    margin-right auto
+
+  button
+
+
+.answer-input
+  margin-right 15px
+
+.video-container
+  .video-player
+    &.hidden
+      position: absolute
+      left: -10000px
+
+.hidden
+  position: absolute
+  left: -10000px
+
+.slides-recorder
+  height 100%
+  width 100%
+
+#drop-container
+  height 580px
+  width 780px
+  display table
+  padding 10px
+  #drop-pdf
+    display table-cell
+    text-align center
+    vertical-align middle
+    background-color #f6f6f6
+    border 1px dashed #666
+    border-radius 10px
+    font-size 24px
+
+.carousel .item
+  max-height 600px
+
+.timeline-area
+  .timeline
+    width 100%
+
+.multiple-choice.recorder
+  padding 10px
+  background-color white
+
+.question-select-form .empty-message
+  display none
+
+.question-select-form.empty .empty-message
+  display block
+
+.multiple-choice-player
+  background-color white
+  height 100%
+
+@-webkit-keyframes blink
+  from
+    background-color LightGray
+  to
+    background-color #ec3640
+
+.timer
+  float left
+  width 200px
+  margin-top 30px
+  line-height 36px
+  margin-left 20px
+
+  .dot
+    width 10px
+    height 10px
+    border 0
+    border-radius 5px
+    background-color LightGray
+    display inline-block
+    margin-right 10px
+
+    &.active
+      -webkit-animation-duration 0.7s
+      -webkit-animation-iteration-count infinite
+      -webkit-animation-direction alternate
+      -webkit-animation-name blink
+      -webkit-animation-timing-function linear
+  .time
+    font-size 18px
+    font-weight bold
