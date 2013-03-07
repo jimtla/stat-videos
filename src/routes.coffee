@@ -1,6 +1,6 @@
 module.exports = (app) ->
     {die_on_error} = require './util'
-    {add_type} = require './rest'
+    rest = require './rest'
     fs = require 'fs'
     ftp = require 'ftp'
 
@@ -12,6 +12,9 @@ module.exports = (app) ->
 
         chars.join ''
 
+
+    video_type = rest.add_type app, 'video', {}
+
     app.get '/add_video', (req, res) ->
         res.render 'add_video'
 
@@ -19,9 +22,11 @@ module.exports = (app) ->
         fs.readFile req.files.video.path, (err, data) ->
             client = new ftp()
             client.on 'ready', ->
-                client.put data, "videos/#{random_name 16}", die_on_error res, ->
+                key = "videos/#{random_name 16}.mp4"
+                client.put data, key, die_on_error res, ->
                     client.end()
-                    res.send 'okay'
+                    video_type.add {video: "http://acsvolleyball.com/#{key}"}, die_on_error res, (video) ->
+                            res.redirect "/stat/#{video.id}"
 
             client.on 'error', (err) -> res.send err
 
@@ -29,4 +34,10 @@ module.exports = (app) ->
                 host: 'acsvolleyball.com'
                 user: 'acsvolleyball'
                 password: 'Voll3yball'
+
+    app.get '/stat/:id', (req, res) ->
+        console.log req.params.id
+        video_type.get req.params.id, die_on_error res, (video) ->
+            console.log video
+            res.render 'stat', {vid: video}
 

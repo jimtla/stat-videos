@@ -10,7 +10,6 @@ add_type = (app, type, {after_add, before_del, after_get}) ->
 
     add = (data, callback) ->
         redis.incr "atom:#{type}_count", fail_on_error callback, (id) ->
-            console.log 'Incremented!', id
             data.id = id
             save data, fail_on_error callback, ->
                 redis.rpush "atom:#{type}s", id, fail_on_error callback, ->
@@ -27,13 +26,10 @@ add_type = (app, type, {after_add, before_del, after_get}) ->
                 redis.lrem "atom:#{type}s", 0, id, callback
 
     get = (id, callback) ->
-        console.log type, id
         get_json "atom:#{type}s:#{id}", fail_on_error callback, (data) ->
-            console.log data
             after_get data, callback
 
     get_collection = (ids = [], callback) ->
-        console.log type, ids
         arg_map async.map, 'array', 'iterator', 'callback',
             array: ids
             iterator: get
@@ -51,7 +47,6 @@ add_type = (app, type, {after_add, before_del, after_get}) ->
                     callback null, model
 
     app.post "/#{type}s", (req, res) ->
-        console.log req.body.json
         add JSON.parse(req.body.json), die_on_error res, (model) ->
             res.send 200, JSON.stringify model
 

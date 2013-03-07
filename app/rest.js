@@ -29,7 +29,6 @@ add_type = function(app, type, _arg) {
   }
   add = function(data, callback) {
     return redis.incr("atom:" + type + "_count", fail_on_error(callback, function(id) {
-      console.log('Incremented!', id);
       data.id = id;
       return save(data, fail_on_error(callback, function() {
         return redis.rpush("atom:" + type + "s", id, fail_on_error(callback, function() {
@@ -52,9 +51,7 @@ add_type = function(app, type, _arg) {
     }));
   };
   get = function(id, callback) {
-    console.log(type, id);
     return get_json("atom:" + type + "s:" + id, fail_on_error(callback, function(data) {
-      console.log(data);
       return after_get(data, callback);
     }));
   };
@@ -62,7 +59,6 @@ add_type = function(app, type, _arg) {
     if (ids == null) {
       ids = [];
     }
-    console.log(type, ids);
     return arg_map(async.map, 'array', 'iterator', 'callback', {
       array: ids,
       iterator: get,
@@ -83,7 +79,6 @@ add_type = function(app, type, _arg) {
     }));
   };
   app.post("/" + type + "s", function(req, res) {
-    console.log(req.body.json);
     return add(JSON.parse(req.body.json), die_on_error(res, function(model) {
       return res.send(200, JSON.stringify(model));
     }));
