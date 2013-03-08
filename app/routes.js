@@ -49,11 +49,20 @@ module.exports = function(app) {
       });
     });
   });
-  return app.get('/stat/:id', function(req, res) {
+  app.get('/stat/:id', function(req, res) {
     console.log(req.params.id);
     return video_type.get(req.params.id, die_on_error(res, function(video) {
       console.log(video);
       return res.render('stat', {
+        vid: video
+      });
+    }));
+  });
+  return app.get('/view/:id', function(req, res) {
+    console.log(req.params.id);
+    return video_type.get(req.params.id, die_on_error(res, function(video) {
+      console.log(video);
+      return res.render('view', {
         vid: video
       });
     }));

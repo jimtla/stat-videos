@@ -41,3 +41,11 @@ module.exports = (app) ->
             console.log video
             res.render 'stat', {vid: video}
 
+    app.get '/view/:id', (req, res) ->
+        console.log req.params.id
+        video_type.get req.params.id, die_on_error res, (video) ->
+            console.log video
+            res.render 'view', {vid: video}
+
+
+

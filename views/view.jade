@@ -3,6 +3,7 @@ extends layout
 block css
   link(href="http://vjs.zencdn.net/c/video-js.css",rel="stylesheet")
   script(src="http://vjs.zencdn.net/c/video.js")
+  != css('view')
 
 block content
   script config = {"video": !{JSON.stringify(vid)}}
@@ -12,11 +13,12 @@ block content
     video(id="video",class="video-js vjs-default-skin",preload="auto",width="640",height="264",data-setup="{}")
 
       source(src=vid.video,type='video/mp4')
-    button.play Start Statting!
-    .statting
+    button.play Play!
+    .stats
+      input.filter(type='text')
       .log
-      input.stat-input(type='text')
-    button.done Done!
+        -each stat, idx in vid.stats
+          .stat(data-time=stat.time, id="stat-#{idx}")=stat.stat
 
 block scripts
-  != js('stat')
+  != js('view')
