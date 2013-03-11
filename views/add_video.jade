@@ -4,3 +4,10 @@ block content
     form(action="/add_video", method="post", enctype="multipart/form-data")
       input(type="file", name="video")
       button(type='submit')
+    form(class="by-link")
+      span.label Enter URL to video
+      input(type="text",class="link")
+      button(type="submit") Add URL
+
+block scripts
+  != js('add_video')
