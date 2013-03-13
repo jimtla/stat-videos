@@ -45,6 +45,9 @@ module.exports = (app) ->
         console.log req.params.id
         video_type.get req.params.id, die_on_error res, (video) ->
             console.log video
+            for stat in video.stats
+                # Subtract 3 seconds because the stat is entered after the play
+                stat.time = Math.max 0, stat.time - 3
             res.render 'view', {vid: video}
 
 

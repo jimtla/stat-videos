@@ -61,7 +61,13 @@ module.exports = function(app) {
   return app.get('/view/:id', function(req, res) {
     console.log(req.params.id);
     return video_type.get(req.params.id, die_on_error(res, function(video) {
+      var stat, _i, _len, _ref;
       console.log(video);
+      _ref = video.stats;
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        stat = _ref[_i];
+        stat.time = Math.max(0, stat.time - 3);
+      }
       return res.render('view', {
         vid: video
       });
