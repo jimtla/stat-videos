@@ -37,6 +37,7 @@ $ ->
                     return Math.max 0, idx - 1
             return stats.length - 1
 
+        all_stats = config.video.stats
         for stat, idx in all_stats
             stat.node = $ "#stat-#{idx}"
 
