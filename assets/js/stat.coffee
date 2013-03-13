@@ -16,12 +16,12 @@ $ ->
 
         input = $ '.stat-input'
         log = $ '.log'
-        stats = []
+        stats = config.video.stats ? []
         input.on 'keypress', (e) ->
             if e.which == 13
                 time = player.currentTime()
                 stat = input.val()
-                log.append $ "<div><span class='timestamp'>#{time}</span>#{stat}</div>"
+                log.append $ "<div><span class='timestamp'>#{time} </span>#{stat}</div>"
                 input.val ''
                 stats.push {time, stat}
                 false

@@ -17,6 +17,8 @@ block content
       input.stat-input(type='text')
       button.done Done!
       .log
+        -each stat, idx in vid.stats
+          .stat(data-time=stat.time, id="stat-#{idx}")=stat.time + ' ' + stat.stat
 
 block scripts
   != js('stat')
