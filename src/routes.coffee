@@ -3,6 +3,8 @@ module.exports = (app) ->
     rest = require './rest'
     fs = require 'fs'
     ftp = require 'ftp'
+    _ = require 'underscore'
+
 
     characters = 'abcdefghijklmnopqrstuvwxyz0123456789'
     random_name = (length) ->
@@ -39,6 +41,7 @@ module.exports = (app) ->
         console.log req.params.id
         video_type.get req.params.id, die_on_error res, (video) ->
             console.log video
+            video.stats ?= []
             res.render 'stat', {vid: video}
 
     app.get '/view/:id', (req, res) ->
@@ -48,7 +51,24 @@ module.exports = (app) ->
             for stat in video.stats
                 # Subtract 3 seconds because the stat is entered after the play
                 stat.time = Math.max 0, stat.time - 3
-            res.render 'view', {vid: video}
+
+            players = _.uniq _(video.stats).map (stat) ->
+                stat.stat.player
+            skill_names  = _.uniq _(video.stats).map (stat) ->
+                stat.stat.skill
+
+            skills = _.map skill_names, (name) ->
+                relevant_stats = _(video.stats).filter (stat) -> stat.stat.skill == name
+                details = {}
+                for stat in relevant_stats
+                    for detail, value of stat.stat.details
+                        details[detail] ?= []
+                        if value not in details[detail]
+                             details[detail].push value
+
+                {name, details}
+
+            res.render 'view', {vid: video, players, skills}
 
 
 

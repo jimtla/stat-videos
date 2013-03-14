@@ -15,10 +15,35 @@ block content
       source(src=vid.video,type='video/mp4')
     button.play Play!
     .stats
-      input.filter(type='text')
+      .controls
+        .players
+          h3.header Player
+          -each player in players
+            span.checkbox-group
+              input.player-checkbox(type="checkbox",data-player=player)
+              label.checkbox.inline= player
+        .skills
+          h3.header Skill
+          -each skill in skills
+            .skill(class=skill.name)
+              span.checkbox-group
+                input.skill-checkbox(type="checkbox",data-skill=skill.name)
+                label.checkbox.inline= skill.name
+              .details
+                -each values, name in skill.details
+                  div.detail(class=name, data-name=name)
+                    span.detail-label.checkbox.inline #{name}:
+                    .options
+                      -each value in values
+                        span.checkbox-group
+                          input.detail-checkbox(type="checkbox",data-detail=value)
+                          label.checkbox.inline=value
+
       .log
         -each stat, idx in vid.stats
-          .stat(data-time=stat.time, id="stat-#{idx}")=stat.stat
+          .stat(data-time=stat.time, id="stat-#{idx}")= JSON.stringify(stat.stat)
 
 block scripts
   != js('view')
+
+{skill: 'hit', player: 4, details: {hands: h0, location: "5-6"}}

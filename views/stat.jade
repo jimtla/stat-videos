@@ -21,4 +21,5 @@ block content
           .stat(data-time=stat.time, id="stat-#{idx}")=stat.time + ' ' + stat.stat
 
 block scripts
+  != js('globals')
   != js('stat')
