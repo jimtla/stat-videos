@@ -4,8 +4,6 @@ skills_by_character =
         details: 
             q:
                 name: 'quality'
-            s:
-                name: 'side'
     h:
         name: 'hit'
         details:
