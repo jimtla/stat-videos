@@ -72,7 +72,7 @@ module.exports = function(app) {
       _ref = video.stats;
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         stat = _ref[_i];
-        stat.time = Math.max(0, stat.time - 3);
+        stat.time = Math.max(0, stat.time - 5);
       }
       players = _.uniq(_(video.stats).map(function(stat) {
         return stat.stat.player;
