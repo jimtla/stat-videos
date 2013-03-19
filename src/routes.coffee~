@@ -50,7 +50,7 @@ module.exports = (app) ->
             console.log video
             for stat in video.stats
                 # Subtract 3 seconds because the stat is entered after the play
-                stat.time = Math.max 0, stat.time - 6
+                stat.time = Math.max 0, stat.time - 8
 
             players = _.uniq _(video.stats).map (stat) ->
                 stat.stat.player
