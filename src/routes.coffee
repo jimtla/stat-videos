@@ -67,7 +67,8 @@ module.exports = (app) ->
                              details[detail].push value
 
                 {name, details}
-
+            split_url = video.url.split('.')
+            vid.flashurl = (split_url[0...split_url.length].join'.')+.flv
             res.render 'view', {vid: video, players, skills}
 
 
