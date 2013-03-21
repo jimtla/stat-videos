@@ -26,6 +26,8 @@ skills_by_character =
                 name: 'from'
             l:
                 name: 'location'
+            d:
+                name: 'deep'
     set:
         name: 'set'
         details: {}
@@ -34,6 +36,8 @@ skills_by_character =
         details:
             q:
                 name: 'quality'
+            s:
+                name: 'side'    
     b:
         name: 'block'
         details: 
