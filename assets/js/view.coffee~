@@ -48,7 +48,7 @@ $ ->
 
         show_filtered = (test) ->
             filtered_stats = (stat for stat in all_stats when test stat.stat)
-  
+            console.log filtered_stats
             $('.stat').hide()
             for stat in filtered_stats
                 stat.node.show()
