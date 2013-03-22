@@ -33,6 +33,7 @@ $ ->
         log = $ '.log'
         stats = config.video.stats ? []
         input.on 'keydown', (e) ->
+            alert e.which
             if e.which == 13
                 stat = parse_stat input.val()
                 log.append $ "<div><span class='timestamp'>#{time} </span>#{JSON.stringify stat}</div>"
