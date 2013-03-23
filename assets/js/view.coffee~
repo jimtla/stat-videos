@@ -42,29 +42,6 @@ $ ->
             stat.node = $ "#stat-#{idx}"
 
         filtered_stats = all_stats
-        kills = 0
-        errors = 0
-        us = 0
-        them = 0
-        for current_stat in filtered_stats
-            console.log current_stat
-            
-            if current_stat.stat.details.result != undefined
-                console.log 'here'
-                if current_stat.stat.details.result == "k"
-                    console.log 'kills'
-                    kills+=1
-                if current_stat.stat.details.result == "e"
-                    console.log 'errors'
-                    errors+=1
-                if current_stat.stat.details.result == "u"
-                    console.log 'us'
-                    us+=1
-                if current_stat.stat.details.result == "t"
-                    console.log 'them'
-                    them+=1
-        console.log "kills" + kills
-        console.log (kills-errors)/(kills+errors+us+them)
         show_all = ->
             filterted_stats = all_stats
             
@@ -73,7 +50,31 @@ $ ->
 
         show_filtered = (test) ->
             filtered_stats = (stat for stat in all_stats when test stat.stat)
-  
+            kills = 0
+            errors = 0
+            us = 0
+            them = 0
+            for current_stat in filtered_stats
+                console.log current_stat
+                
+                if current_stat.stat.details.result != undefined
+                    console.log 'here'
+                    if current_stat.stat.details.result == "k"
+                        console.log 'kills'
+                        kills+=1
+                    if current_stat.stat.details.result == "e"
+                        console.log 'errors'
+                        errors+=1
+                    if current_stat.stat.details.result == "u"
+                        console.log 'us'
+                        us+=1
+                    if current_stat.stat.details.result == "t"
+                        console.log 'them'
+                        them+=1
+            console.log "kills" + kills
+            hit_pct = (kills-errors)/(kills+errors+us+them)
+            console.log hit_pct
+            $('.hitpct').html hit_pct
             $('.stat').hide()
             for stat in filtered_stats
                 stat.node.show()

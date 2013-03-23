@@ -72,8 +72,9 @@ $ ->
                         console.log 'them'
                         them+=1
             console.log "kills" + kills
-            console.log (kills-errors)/(kills+errors+us+them)
-       
+            hit_pct = (kills-errors)/(kills+errors+us+them)
+            console.log hit_pct
+            $('.hitpct').html "Hit Percentage " + hit_pct
             $('.stat').hide()
             for stat in filtered_stats
                 stat.node.show()

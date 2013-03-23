@@ -44,6 +44,8 @@ block content
         -each stat, idx in vid.stats
           .stat(data-time=stat.time, id="stat-#{idx}")= JSON.stringify(stat.stat)
 
+      .hitpct
+                
 block scripts
   != js('view')
 
