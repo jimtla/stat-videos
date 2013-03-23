@@ -15,6 +15,8 @@ block content
       source(src=vid.video,type='video/webm')
       source(src=vid.flashurl,type='video/flv')
     button.play Play!
+    .hitpct
+      h4.header Plays
     .stats
       .controls
         .players
@@ -44,6 +46,8 @@ block content
         -each stat, idx in vid.stats
           .stat(data-time=stat.time, id="stat-#{idx}")= JSON.stringify(stat.stat)
 
+      
+                
 block scripts
   != js('view')
 
