@@ -44,11 +44,36 @@ $ ->
         filtered_stats = all_stats
         show_all = ->
             filterted_stats = all_stats
+            
             $('.stat').show()
+
 
         show_filtered = (test) ->
             filtered_stats = (stat for stat in all_stats when test stat.stat)
-  
+            kills = 0
+            errors = 0
+            us = 0
+            them = 0
+            for current_stat in filtered_stats
+                console.log current_stat
+                
+                if current_stat.stat.details.result != undefined
+                    console.log 'here'
+                    if current_stat.stat.details.result == "k"
+                        console.log 'kills'
+                        kills+=1
+                    if current_stat.stat.details.result == "e"
+                        console.log 'errors'
+                        errors+=1
+                    if current_stat.stat.details.result == "u"
+                        console.log 'us'
+                        us+=1
+                    if current_stat.stat.details.result == "t"
+                        console.log 'them'
+                        them+=1
+            console.log "kills" + kills
+            console.log (kills-errors)/(kills+errors+us+them)
+       
             $('.stat').hide()
             for stat in filtered_stats
                 stat.node.show()
@@ -94,7 +119,7 @@ $ ->
                     if required
                         filter.required.details[skill].push name
                 details
-
+                
 
             [filter.player] = get_filters 'player', player_checkboxes
             [filter.skill] = get_filters 'skill', skill_checkboxes
@@ -103,7 +128,9 @@ $ ->
                 if checked
                     filter.details[skill] = load_details_of skill
 
-            console.log filter
+                
+                    
+  
             show_filtered (stat) ->
                 if filter.player[stat.player] and filter.skill[stat.skill]
                     for detail in filter.required.details[stat.skill]
@@ -125,4 +152,5 @@ $ ->
                 show_all()
             else
                 show_filtered filter
+
 
