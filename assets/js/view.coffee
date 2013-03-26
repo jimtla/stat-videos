@@ -56,6 +56,7 @@ $ ->
             them = 0
             pass_options = ['0','1','2','3','4','5','6']
             pass_counter = (0 for pass_quality in pass_options)
+            serve_counter = (0 for pass_quality in pass_options) 
 
             for current_stat in filtered_stats
                 console.log current_stat
@@ -81,7 +82,11 @@ $ ->
                             if current_stat.stat.details.result == pass_quality
                                 pass_counter[pass_quality] +=1
                         
-
+                    if current_stat.stat.skill == "serve"
+                        console.log current_stat.stat.details.result
+                        for pass_quality in pass_options
+                            if current_stat.stat.details.result == pass_quality
+                                serve_counter[pass_quality] +=1
                             
             
             console.log "kills" + kills
@@ -94,6 +99,8 @@ $ ->
             
             $('.hitpct').html "Hit Percentage " + hit_pct
             $('.passavg').html "Pass Average " + pass_avg
+            $('.serveavg').html "Serve Average " + serve_avg
+            
             $('.stat').hide()
             for stat in filtered_stats             
                 stat.node.show()
