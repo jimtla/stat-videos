@@ -2,8 +2,8 @@ skills_by_character =
     d:
         name: 'dig',
         details: 
-            q:
-                name: 'quality'
+            r:
+                name: 'd_result'
             s:
                 name: 'side'
     h:
@@ -16,7 +16,7 @@ skills_by_character =
             s:
                 name: 'set'
             r:
-                name: 'result'
+                name: 'h_result'
     s:
         name: 'serve'
         details:
@@ -28,14 +28,16 @@ skills_by_character =
                 name: 'location'
             d:
                 name: 'deep'
+            r: 
+                name: 's_result'
     set:
         name: 'set'
         details: {}
     p:
         name: 'pass'
         details:
-            q:
-                name: 'quality'
+            r:
+                name: 'p_result'
             s:
                 name: 'side'    
     b:

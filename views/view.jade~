@@ -16,7 +16,9 @@ block content
       source(src=vid.flashurl,type='video/flv')
     button.play Play!
     .hitpct
-      h4.header Plays
+    .pass
+    .serve
+    .block
     .stats
       .controls
         .players

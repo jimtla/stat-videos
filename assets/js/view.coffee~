@@ -54,32 +54,50 @@ $ ->
             errors = 0
             us = 0
             them = 0
+            pass_options = ['0','1','2','3','4','5','6']
+            pass_counter = (0 for pass_quality in pass_options)
+
             for current_stat in filtered_stats
                 console.log current_stat
                 
                 if current_stat.stat.details.result != undefined
-                    console.log 'here'
-                    if current_stat.stat.details.result == "k"
-                        console.log 'kills'
-                        kills+=1
-                    if current_stat.stat.details.result == "e"
-                        console.log 'errors'
-                        errors+=1
-                    if current_stat.stat.details.result == "u"
-                        console.log 'us'
-                        us+=1
-                    if current_stat.stat.details.result == "t"
-                        console.log 'them'
-                        them+=1
+                    
+                    if current_stat.stat.skill == 'hit'
+                        if current_stat.stat.details.result == "k"
+                            console.log 'kills'
+                            kills+=1
+                        if current_stat.stat.details.result == "e"
+                            console.log 'errors'
+                            errors+=1
+                        if current_stat.stat.details.result == "u"
+                            console.log 'us'
+                            us+=1
+                        if current_stat.stat.details.result == "t"
+                            console.log 'them'
+                            them+=1
+                    if current_stat.stat.skill == "pass"
+                        console.log current_stat.stat.details.result
+                        for pass_quality in pass_options
+                            if current_stat.stat.details.result == pass_quality
+                                pass_counter[pass_quality] +=1
+                        
+
+                            
+            
             console.log "kills" + kills
             hit_pct = (kills-errors)/(kills+errors+us+them)
             console.log hit_pct
-            $('.hitpct').html hit_pct
+            
+            pass_avg = (pass_counter[1]*1+pass_counter[2]*2+pass_counter[3]*3+pass_counter[4]*4+pass_counter[6]*4)/(pass_counter[0]+pass_counter[1]+pass_counter[2]+pass_counter[3]+pass_counter[4]+pass_counter[5]+pass_counter[6])
+            console.log pass_avg
+            
+            
+            $('.hitpct').html "Hit Percentage " + hit_pct
             $('.stat').hide()
-            for stat in filtered_stats
+            for stat in filtered_stats             
                 stat.node.show()
 
-
+                
         controls = $ '.controls'
         player_checkboxes = controls.find '.players .player-checkbox'
         skill_checkboxes  = controls.find '.skills .skill-checkbox'
@@ -153,5 +171,3 @@ $ ->
                 show_all()
             else
                 show_filtered filter
-
-
