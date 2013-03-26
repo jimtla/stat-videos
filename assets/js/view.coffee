@@ -96,6 +96,7 @@ $ ->
             pass_avg = (pass_counter[1]*1+pass_counter[2]*2+pass_counter[3]*3+pass_counter[4]*4+pass_counter[6]*4)/(pass_counter[0]+pass_counter[1]+pass_counter[2]+pass_counter[3]+pass_counter[4]+pass_counter[5]+pass_counter[6])
             console.log pass_avg
             
+            serve_avg = (serve_counter[1]*1+serve_counter[2]*2+serve_counter[3]*3+serve_counter[4]*4+serve_counter[6]*4)/(serve_counter[0]+serve_counter[1]+serve_counter[2]+serve_counter[3]+serve_counter[4]+serve_counter[5]+serve_counter[6])
             
             $('.hitpct').html "Hit Percentage " + hit_pct
             $('.passavg').html "Pass Average " + pass_avg

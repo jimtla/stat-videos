@@ -99,6 +99,7 @@ $ ->
             
             $('.hitpct').html "Hit Percentage " + hit_pct
             $('.passavg').html "Pass Average " + pass_avg
+            $('.serveavg').html "Serve Average " + serve_avg
             
             $('.stat').hide()
             for stat in filtered_stats             
