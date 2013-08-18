@@ -1,0 +1,16 @@
+extends layout
+
+block content
+  .container
+    h3 Game #{id}
+    form.form-horizontal(action="/ipad", method="post")
+        .control-group
+            label.control-label Id
+            input(type="text", value=id, name="id")
+        .control-group
+            label.control-label Video URL
+            input(type="text", name="url") 
+        .control-group
+            label.control-label offset (seconds)
+            input(type="text", name="offset") 
+        button.btn.btn-primary(type="submit") Submit

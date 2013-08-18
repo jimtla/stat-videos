@@ -3,6 +3,7 @@ module.exports = (app) ->
     rest = require './rest'
     fs = require 'fs'
     ftp = require 'ftp'
+    request = require 'request'
     _ = require 'underscore'
 
 
@@ -73,3 +74,31 @@ module.exports = (app) ->
 
 
 
+    app.get '/ipad', (req, res) ->
+        request.get {uri:'http://ipad-stats.herokuapp.com/games', json: true},
+            die_on_error res, (response, games) ->
+                res.render 'ipad_games', {games}
+
+                
+    app.get '/ipad/:game', (req, res) ->
+        id = req.params.game
+        res.render 'ipad_game', {id}
+
+    app.post '/ipad', (req, res) ->
+        {id, url, offset} = req.body
+
+        console.log id
+        request.get {uri:"http://ipad-stats.herokuapp.com/game/#{id}", json: true},
+            die_on_error res, (response, game) ->
+                console.log game
+                stats = _.flatten (play.stats for play in game.plays)
+                start_time = stats[0].timestamp - parseInt offset, 10
+                video = {video: url, stats:[]}
+                video.stats = 
+                    for stat in stats
+                        time: stat.timestamp - start_time
+                        stat: {player: stat.player, skill:stat.skill, details: stat.details}
+                video_type.add video, die_on_error res, (video) ->
+                    res.redirect "/view/#{video.id}"
+
+                

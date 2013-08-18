@@ -2,11 +2,12 @@
 var __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
 module.exports = function(app) {
-  var characters, die_on_error, fs, ftp, random_name, rest, video_type, _;
+  var characters, die_on_error, fs, ftp, random_name, request, rest, video_type, _;
   die_on_error = require('./util').die_on_error;
   rest = require('./rest');
   fs = require('fs');
   ftp = require('ftp');
+  request = require('request');
   _ = require('underscore');
   characters = 'abcdefghijklmnopqrstuvwxyz0123456789';
   random_name = function(length) {
@@ -64,7 +65,7 @@ module.exports = function(app) {
       });
     }));
   });
-  return app.get('/view/:id', function(req, res) {
+  app.get('/view/:id', function(req, res) {
     console.log(req.params.id);
     return video_type.get(req.params.id, die_on_error(res, function(video) {
       var players, skill_names, skills, stat, _i, _len, _ref;
@@ -109,6 +110,69 @@ module.exports = function(app) {
         players: players,
         skills: skills
       });
+    }));
+  });
+  app.get('/ipad', function(req, res) {
+    return request.get({
+      uri: 'http://ipad-stats.herokuapp.com/games',
+      json: true
+    }, die_on_error(res, function(response, games) {
+      return res.render('ipad_games', {
+        games: games
+      });
+    }));
+  });
+  app.get('/ipad/:game', function(req, res) {
+    var id;
+    id = req.params.game;
+    return res.render('ipad_game', {
+      id: id
+    });
+  });
+  return app.post('/ipad', function(req, res) {
+    var id, offset, url, _ref;
+    _ref = req.body, id = _ref.id, url = _ref.url, offset = _ref.offset;
+    console.log(id);
+    return request.get({
+      uri: "http://ipad-stats.herokuapp.com/game/" + id,
+      json: true
+    }, die_on_error(res, function(response, game) {
+      var play, start_time, stat, stats, video;
+      console.log(game);
+      stats = _.flatten((function() {
+        var _i, _len, _ref1, _results;
+        _ref1 = game.plays;
+        _results = [];
+        for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
+          play = _ref1[_i];
+          _results.push(play.stats);
+        }
+        return _results;
+      })());
+      start_time = stats[0].timestamp - parseInt(offset, 10);
+      video = {
+        video: url,
+        stats: []
+      };
+      video.stats = (function() {
+        var _i, _len, _results;
+        _results = [];
+        for (_i = 0, _len = stats.length; _i < _len; _i++) {
+          stat = stats[_i];
+          _results.push({
+            time: stat.timestamp - start_time,
+            stat: {
+              player: stat.player,
+              skill: stat.skill,
+              details: stat.details
+            }
+          });
+        }
+        return _results;
+      })();
+      return video_type.add(video, die_on_error(res, function(video) {
+        return res.redirect("/view/" + video.id);
+      }));
     }));
   });
 };
