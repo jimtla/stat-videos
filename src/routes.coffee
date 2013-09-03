@@ -109,18 +109,29 @@ module.exports = (app) ->
         {url, lines, offset} = req.body
 
         stats = []
+        start_time = null
+        parse_time = (time_string) ->
+            # Parses time like: HH:MM:SS.MSMSMSMS
+            [hours, minutes, seconds] = time_string.split ':'
+            console.log hours, minutes, seconds
+            time = ((parseInt hours, 10) * 60 + (parseInt minutes, 10)) * 60 + parseFloat seconds, 10
+            console.log time
+            start_time ?= time - offset
+            console.log start_time
+            time - start_time
+
         add_stat = (skill, team, player, time, result, details = {}) ->
             details.result = result
             details.team = team
             stats.push 
-                time: time
+                time: parse_time time
                 stat: {player, skill, details}
 
         for line in lines.split '\n'
             if !line?
                 continue
-            console.log line.split "\t"
-            [skill, player, other, result, time] = line.split "\t"
+            console.log line.split " "
+            [skill, player, other, result, time] = line.split " "
             if skill in ['ftp', 'game']
                 continue
             [skill, team] = skill
