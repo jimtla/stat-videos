@@ -218,8 +218,8 @@ module.exports = function(app) {
       if (!(line != null)) {
         continue;
       }
-      console.log(line.split(" "));
-      _ref2 = line.split(" "), skill = _ref2[0], player = _ref2[1], other = _ref2[2], result = _ref2[3], time = _ref2[4];
+      console.log(line.split("\t"));
+      _ref2 = line.split("\t"), skill = _ref2[0], player = _ref2[1], other = _ref2[2], result = _ref2[3], time = _ref2[4];
       if (skill === 'ftp' || skill === 'game') {
         continue;
       }

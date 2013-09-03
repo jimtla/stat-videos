@@ -130,8 +130,9 @@ module.exports = (app) ->
         for line in lines.split '\n'
             if !line?
                 continue
-            console.log line.split " "
-            [skill, player, other, result, time] = line.split " "
+            #console.log line.split " "
+            console.log line.split "\t"
+            [skill, player, other, result, time] = line.split "\t"
             if skill in ['ftp', 'game']
                 continue
             [skill, team] = skill
