@@ -68,8 +68,8 @@ module.exports = (app) ->
                              details[detail].push value
 
                 {name, details}
-            split_url = video.url.split('.')
-            vid.flashurl = (split_url[0...split_url.length].join'.')+.flv
+            split_url = video.video.split('.')
+            video.flashurl = (split_url[0...split_url.length].join '.') + '.flv'
             res.render 'view', {vid: video, players, skills}
 
 
@@ -102,3 +102,47 @@ module.exports = (app) ->
                     res.redirect "/view/#{video.id}"
 
                 
+    app.get '/old', (req, res) ->
+        res.render 'old', {}
+
+    app.post '/old', (req, res) ->
+        {url, lines, offset} = req.body
+
+        stats = []
+        add_stat = (skill, team, player, time, result, details = {}) ->
+            details.result = result
+            details.team = team
+            stats.push 
+                time: time
+                stat: {player, skill, details}
+
+        for line in lines.split '\n'
+            if !line?
+                continue
+            console.log line.split "\t"
+            [skill, player, other, result, time] = line.split "\t"
+            if skill in ['ftp', 'game']
+                continue
+            [skill, team] = skill
+            if team == "t" 
+                team = 1
+            else 
+                team = 0
+            switch skill
+                when 's'
+                    add_stat "serve", team, player, time, result
+                    add_stat "pass", 1 - team, other, time, result
+                when 'h'
+                    add_stat "hit", team, player, time, result, {hands: other}
+                when 'd'
+                    time = other
+                    add_stat "dig", team, player, time, ''
+                when 'b'
+                    time = result
+                    result = other
+                    add_stat "block", team, player, time, result
+
+        video = {video: url, stats}
+
+        video_type.add video, die_on_error res, (video) ->
+            res.redirect "/view/#{video.id}"

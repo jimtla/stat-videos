@@ -1,0 +1,16 @@
+extends layout
+
+block content
+  .container
+    h3 Game 
+    form.form-horizontal(action="/old", method="post")
+        .control-group
+            label.control-label Lines
+            textarea(type="text", name="lines")
+        .control-group
+            label.control-label Video URL
+            input(type="text", name="url") 
+        .control-group
+            label.control-label offset (seconds)
+            input(type="text", name="offset") 
+        button.btn.btn-primary(type="submit") Submit
