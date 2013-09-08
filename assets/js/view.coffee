@@ -1,4 +1,5 @@
 $ ->
+    filtered_stats = []
     _V_("video").ready ->
         player = @
 
@@ -19,6 +20,26 @@ $ ->
             player.currentTime stat.data "time"
             player.play()
 
+
+
+        filtered_stat_at_time = (time) ->
+            stats = config.video.stats
+            for stat, idx in filtered_stats
+                if stat.time > time
+                    return Math.max 0, idx - 1
+            return stats.length - 1
+
+
+        $('body').keydown (e) ->
+            console.log(e)  
+            if e.which == 39
+                time = player.currentTime()
+                new_current_stat = filtered_stat_at_time time
+                console.log new_current_stat, current_stat
+                player.currentTime(filtered_stats[new_current_stat+1].time) 
+                player.play()
+
+
         stat_at_time = (time) ->
             stats = config.video.stats
             for stat, idx in stats
@@ -35,6 +56,8 @@ $ ->
                 $("#stat-#{current_stat}").removeClass 'current'
                 current_stat = new_current_stat
                 $("#stat-#{current_stat}").addClass 'current'
+
+
 
     do -> # Filtering
         all_stats = config.video.stats
@@ -180,3 +203,5 @@ $ ->
                 show_all()
             else
                 show_filtered filter
+
+        
