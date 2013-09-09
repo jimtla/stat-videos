@@ -32,12 +32,25 @@ $ ->
 
         $('body').keydown (e) ->
             console.log(e)  
+            if e.which == 37
+                time = player.currentTime()
+                new_current_stat = filtered_stat_at_time time
+                console.log new_current_stat, current_stat
+                player.currentTime(filtered_stats[new_current_stat-1].time) 
+                player.play()
+            if e.which == 38
+                time = player.currentTime()
+                new_current_stat = filtered_stat_at_time time
+                console.log new_current_stat, current_stat
+                player.currentTime(filtered_stats[new_current_stat].time) 
+                player.play()
             if e.which == 39
                 time = player.currentTime()
                 new_current_stat = filtered_stat_at_time time
                 console.log new_current_stat, current_stat
                 player.currentTime(filtered_stats[new_current_stat+1].time) 
                 player.play()
+
 
 
         stat_at_time = (time) ->
